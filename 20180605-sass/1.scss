@@ -1,0 +1,85 @@
+$primary-color: yellow;
+/*$bgColor:blue;*/
+$bgColor:red !default;
+$color:yellow;
+@mixin border-radius{
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+@mixin center-block{
+	margin-left:auto;
+	margin-right: auto;
+}
+@mixin btnR($w:3px){
+	border-radius: $w;
+	-webkit-border-radius:$w;
+}
+@mixin boxSize($w:100px,$h:200px){
+	width: $w;
+	height: $h;
+}
+h1{
+	color:$primary-color;
+}
+.test{
+	color: $primary-color;
+	background: $bgColor;
+}
+p{
+	$bgColor: #ccc;
+	a{
+		background: $bgColor;
+	}
+}
+.box2{
+	background: $bgColor;
+	color: $color;
+}
+.box3 p{
+	$color: blue !global;
+	color: $color;
+}
+.box3 .box4{
+	color: $color;
+}
+.qiantao{
+	line-height: 40px;
+	a{
+		padding: 0 10px;
+		background: $bgColor;
+		color:$color;
+		font:{
+			size:30px;
+			weight:bold;
+		}
+		&:hover{
+			color: green;
+		}
+	}
+}
+.btn{
+	@include border-radius;
+}
+.span{
+	/*@include border-radius;*/
+	/*background: $bgColor;*/
+}
+.main{
+	@include center-block;
+	margin-top: 10px;
+	background: $bgColor;
+	width: 1000px;
+	img{
+		width: 800px;
+		height: 100px;
+		display: block;
+		@include center-block;
+	}
+	button{
+		@include btnR($w:15px);
+	}
+}
+.box{
+	@include boxSize($h:100px);
+	background: $bgColor;
+}

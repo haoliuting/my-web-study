@@ -1,0 +1,58 @@
+1.安装
+ 1)下载 ruby
+ 2)安装haml sass
+ 	打开Ruby的命令符面板，输入： gem install haml 和 gem install sass
+ 3)进入相应的文件中,执行命令
+ 	sass test.scss test.css
+ 	sass --style compressed test.scss test.css
+		　* nested：嵌套缩进的css代码，它是默认值。
+
+		　　* expanded：没有缩进的、扩展的css代码。
+
+		　　* compact：简洁格式的css代码。
+
+		　　* compressed：压缩后的css代码。
+
+	监听某个文件
+　　sass --watch input.scss:output.css
+
+　　监听目录
+
+　　sass --watch app/sass:public/stylesheet
+
+2.变量
+	1）默认
+		$color:red !detault;
+	2)全局、局部
+	3)嵌套 &表示父元素选择器
+
+3.@mixin
+	(1)无参数
+		 @mixin border-radius{
+		    -webkit-border-radius: 5px;
+		    border-radius: 5px;
+		}
+
+		button {
+		    @include border-radius;
+		}
+
+	(2)有参数
+		@mixin border-radius($w:3px){
+			border-radius:$w;
+			-webkit-border-radius:$w;
+		}
+		div{
+			@include border-radius;
+			@include border-radius(10px);
+		}
+	(3)多个参数
+		@mixin boxSize($w:100px,$h:200px){
+			width: $w;
+			height: $h;
+		}
+		.box{
+			@include boxSize($h:100px);
+			background: $bgColor;
+		}
+4.继承

@@ -1,0 +1,62 @@
+/*$bgColor:blue;*/
+h1 {
+  color: yellow; }
+
+.test {
+  color: yellow;
+  background: red; }
+
+p a {
+  background: #ccc; }
+
+.box2 {
+  background: red;
+  color: yellow; }
+
+.box3 p {
+  color: blue; }
+
+.box3 .box4 {
+  color: blue; }
+
+.qiantao {
+  line-height: 40px; }
+  .qiantao a {
+    padding: 0 10px;
+    background: red;
+    color: blue;
+    font-size: 30px;
+    font-weight: bold; }
+    .qiantao a:hover {
+      color: green; }
+
+.btn {
+  border-radius: 5px;
+  -webkit-border-radius: 5px; }
+
+.span {
+  /*@include border-radius;*/
+  /*background: $bgColor;*/ }
+
+.main {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  background: red;
+  width: 1000px; }
+  .main img {
+    width: 800px;
+    height: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; }
+  .main button {
+    border-radius: 15px;
+    -webkit-border-radius: 15px; }
+
+.box {
+  width: 100px;
+  height: 100px;
+  background: red; }
+
+/*# sourceMappingURL=1.css.map */
