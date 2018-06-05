@@ -1,0 +1,26 @@
+.error, .second-error {
+  border: 1px solid red; }
+
+.error a, .second-error a, .error span, .second-error span {
+  font-size: 40px; }
+
+.second-error {
+  border-width: 3px;
+  font-size: 20px; }
+
+a, span {
+  color: red; }
+
+span {
+  /*color: gray;*/ }
+
+.one, .three {
+  font-size: 40px; }
+
+.two, .three {
+  color: blue; }
+
+.three {
+  border: 2px solid yellow; }
+
+/*# sourceMappingURL=2.css.map */

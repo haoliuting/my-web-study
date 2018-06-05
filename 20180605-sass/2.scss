@@ -1,0 +1,31 @@
+.error{
+	border: 1px solid red;
+}
+.error a{
+	font-size: 40px;
+}
+.second-error{
+	@extend .error;
+	border-width: 3px;
+	font-size: 20px;
+}
+a{
+	color: red;
+}
+span{
+	/*color: gray;*/
+	@extend a;
+}
+$font-size:40px;
+$color:blue;
+.one{
+	font-size: $font-size;
+}
+.two{
+	color: $color;
+}
+.three{
+	@extend .one;
+	@extend .two;
+	border: 2px solid yellow;
+}

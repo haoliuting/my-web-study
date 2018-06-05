@@ -56,3 +56,17 @@
 			background: $bgColor;
 		}
 4.继承
+	(1)@extend
+
+	eg:.error{
+		color:red;
+		margin-top:20px;
+	}
+	.one{
+		font-size:40px;
+	}
+	.second .error{
+		@extend .error;
+		@extend .one;
+		border: 2px solid blue;
+	}
