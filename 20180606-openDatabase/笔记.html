@@ -1,0 +1,66 @@
+1.创建数据库
+	eg:var myDB=window.openDatabase("myDB","1.0","这是复习",function(){
+		alert("打开数据库")
+	})
+	window.openDatabase(数据库名称,版本号,"说明",创建成功的回调函数);
+2.创建表+插入数据
+	var createSql="CREATE TABLE IF NOT EXISTS myTable (rowid INTEGER PRIMARY KEY AUTOINCREMENT,NAME text,AGE text)";
+	myDB.transaction(function(ctx){
+		ctx.executeSql(createSql,[],function(){
+			console.log("create success");
+			//插入数据
+			ctx.executeSql("INSERT INTO myTable (NAME,AGE) VALUES (?,?)",[name,age],function(){
+				console.log("insert success");
+				username.value="";
+				userage.value="";
+				selectInfo();
+			},function(){
+				alert("插入失败")
+			})
+		},function(){
+			alert("创建表失败")
+		})
+	})
+3.修改数据
+	var upDateSql="UPDATE myTable SET AGE=? WHERE NAME=?";
+		myDB.transaction(function(ctx){
+			ctx.executeSql(upDateSql,[age,name],function(){
+				console.log("update success");
+				changename.value="";
+				changeage.value="";
+				selectInfo();
+			},function(){
+				alert("更新失败")
+			})
+		})
+4.删除数据
+	var deleteSql="DELETE FROM myTable";//删除整个表
+	if(name){
+		deleteSql+=" WHERE NAME=?";//删除某条数据
+	}
+	myDB.transaction(function(ctx){
+		ctx.executeSql(deleteSql,name?[name]:[],function(){
+			console.log("delete success");
+			deletename.value="";
+			selectInfo();
+		},function(){
+			alert("删除失败")
+		})
+	})
+5.查询
+	var selectSql="SELECT * FROM myTable";//查询表
+		if(name){
+			selectSql+=" WHERE NAME=?";//查询某条数据
+		}
+		myDB.transaction(function(ctx){
+			ctx.executeSql(selectSql,name?[name]:[],function(ctx,result){
+				console.log("select success");
+				console.log(result.rows)
+				table.innerHTML="";
+				for(var i=0;i<result.rows.length;i++){
+					table.innerHTML+=`<tr><td>${result.rows[i].NAME}</td><td>${result.rows[i].AGE}</td></tr>`;
+				}
+			},function(){
+				alert("查询失败")
+			})
+		})

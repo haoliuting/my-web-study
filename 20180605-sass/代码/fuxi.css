@@ -1,0 +1,64 @@
+.wrap .con {
+  border: 2px solid #000;
+  background: #fff; }
+
+.wrap {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  background: #ccc;
+  overflow: hidden; }
+  .wrap header, .wrap footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    background: #333;
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px; }
+  .wrap .con {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto; }
+    .wrap .con p {
+      width: 200px;
+      background: red;
+      font-weight: bold; }
+    .wrap .con h1 {
+      width: 500px;
+      background: purple; }
+    .wrap .con h2 {
+      height: 40px;
+      border: 2px solid blue; }
+    .wrap .con div {
+      height: 100px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #000; }
+    .wrap .con .item-1 {
+      width: 100px;
+      height: 100px; }
+    .wrap .con .item-2 {
+      width: 200px;
+      height: 200px; }
+    .wrap .con .item-3 {
+      width: 300px;
+      height: 300px; }
+    .wrap .con .bg1 {
+      background: url(img/bg1.jpg) 0 0 no-repeat; }
+    .wrap .con .bg2 {
+      background: url(img/bg2.jpg) 0 0 no-repeat; }
+    .wrap .con .bg3 {
+      background: url(img/bg3.jpg) 0 0 no-repeat; }
+    .wrap .con .item-6 {
+      background: red; }
+    .wrap .con .item-4 {
+      background: red; }
+    .wrap .con .item-2 {
+      background: red; }
+  .wrap footer {
+    background: yellow; }
+
+/*# sourceMappingURL=fuxi.css.map */

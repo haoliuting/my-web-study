@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+		<input type="text" placeholder="username" id="username">
+		<input type="text" placeholder="userage" id="userage">
+		<button >添加</button>
+	</div>
+	<div>
+		<input type="text" placeholder="input search name" id="searchIpt">
+		<button>查询</button>
+	</div>
+	<div>
+		<input type="text" placeholder="input search name" id="deleteName">
+		<button>删除</button>
+		<button>全部删除</button>
+	</div>
+	<div>
+		<input type="text" placeholder="修改的name" id="fixedname">
+		<input type="text" placeholder="修改后的age" id="fixedage">
+		<button>修改</button>
+	</div>
+	<div id="showCon"></div>
+	<script>
+		var username=document.getElementById('username');
+		var userage=document.getElementById("userage");
+		var searchIpt=document.getElementById("searchIpt");
+		var fixedname=document.getElementById("fixedname");
+		var fixedage=document.getElementById("fixedage");
+		var showCon=document.getElementById("showCon");
+		var deleteName=document.getElementById("deleteName");
+		var btn=document.getElementsByTagName('button');
+		var db=window.openDatabase("mySQL",'1.0','这是我的第一个数据库',10*1024*1024,function(){
+			alert("打开数据库")
+		})
+		btn[0].onclick=add;
+		btn[1].onclick=function(){
+			selectInfo(searchIpt.value)
+		};
+		btn[2].onclick=function(){
+			deleteInfo(deleteName.value)
+		}
+		btn[3].onclick=function(){
+			deleteInfo();
+		}
+		btn[4].onclick=function(){
+			fixedInfo(fixedname.value,fixedage.value)
+		}
+		function add(){
+			if(username.value!=""&&userage.value!=""){
+				//建表
+				db.transaction(function(ctx){
+					ctx.executeSql("CREATE TABLE IF NOT EXISTS myTable (rowid INTEGER PRIMARY KEY AUTOINCREMENT,NAME text,AGE text)",[],function(){//success callback
+						console.log("建表成功")
+						ctx.executeSql("INSERT INTO myTable (NAME,AGE) VALUES (?,?)",[username.value,userage.value],function(){
+							console.log("insert success");
+							username.value=userage.value="";
+							selectInfo("");
+						})
+					},function(){//error callback
+						console.log("建表失败")
+					})
+				})
+
+			}else{
+				alert("都不能为空");
+			}
+		}
+		function selectInfo(selectName){
+			var selectSql="SELECT * FROM myTable"
+			db.transaction(function(ctx){
+				if(selectName!=""){
+					selectSql+=" WHERE NAME= ?";
+				}
+				ctx.executeSql(selectSql,selectName!=""?[selectName]:[],function(ctx,result){
+					console.log("select success")
+					showCon.innerHTML="";
+					for(var i=0;i<result.rows.length;i++){
+						showCon.innerHTML+="<div>"+result.rows[i].NAME+"      "+result.rows[i].AGE+"</div>";
+					}
+					
+				},function(){
+					console.log("select fail")
+				})
+			})
+		}
+		function deleteInfo(selectName){
+			var deleteSql="DELETE FROM myTable";
+			if(selectName){
+				deleteSql+=" WHERE NAME=?"
+			}
+			db.transaction(function(ctx){
+				ctx.executeSql(deleteSql,selectName?[selectName]:[],function(ctx){
+					console.log("delete success");
+					selectInfo("");
+				},function(){
+					alert("没有查询到该信息")
+				})
+
+			})
+		}
+		function fixedInfo(name,age){
+			var fixedSql="UPDATE myTable SET AGE=? WHERE NAME=?";
+			db.transaction(function(ctx){
+				ctx.executeSql(fixedSql,[age,name],function(){
+					console.log("修改成功");
+					selectInfo("");
+				})
+			})
+		}
+	</script>
+</body>
+</html>

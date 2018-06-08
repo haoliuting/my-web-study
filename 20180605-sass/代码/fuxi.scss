@@ -1,0 +1,80 @@
+$bgColor:#ccc;
+$width:1000px;
+$fontBold:true;
+$i:6;
+@mixin center-block{
+	margin-left:auto;
+	margin-right:auto;
+}
+@mixin margin-TB($t,$b){
+	margin-top: $t;
+	margin-bottom:$b;
+}
+%border50{
+	border:2px solid #000;
+	background: #fff;
+}
+.wrap{
+	@include center-block;
+	width:$width;
+	background: $bgColor;
+	overflow: hidden;
+	header{
+		@include center-block;
+		width: 800px;
+		background: #333;
+		height: 100px;
+		@include margin-TB(20px,20px);
+	}
+	.con{
+		@extend %border50;
+		width: 800px;
+		@include center-block;
+		p{
+			width: 100px+100px;
+			background: red;
+			font-weight: if($fontBold,bold,normal)
+		}
+		h1{
+			width:$width/2;
+			background: purple;
+		}
+		h2{
+			height: 40px;
+			@if 3+3==6 {
+				border:2px solid blue;
+			}@else{
+				border: 2px solid yellow;
+			}
+		}
+		div{
+			height: 100px;
+			@include margin-TB(20px,20px);
+			@include center-block;
+			background: #000;
+		}
+		@for $i from 1 through 3{
+			.item-#{$i}{
+				width: 100px*$i;
+				height: 100px*$i;
+			}
+		}
+		@each $img in bg1,bg2,bg3{
+			.#{$img}{
+				background: url(img/#{$img}.jpg) 0 0 no-repeat;
+			}
+		}
+
+		@while $i>0{
+			.item-#{$i}{
+				background:red;
+			}
+			$i:$i - 2
+		}
+	}
+	footer{
+		$bgColor: yellow;
+		@extend header;
+		background: $bgColor;
+	}
+}

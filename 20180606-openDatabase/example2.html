@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	.con{
+		display: flex;
+	}
+	.left,.right{
+		flex:1;
+	}
+	.left{
+		flex:1000px 0;
+		background: #ccc;
+	}
+	.left div{
+		background: #fff;
+		margin: 20px;
+		padding:20px;
+	}
+	.right{
+		background: yellow;
+	}
+	input,button{
+		font-size: 30px;
+	}
+	h2{
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<div class="con">
+		<div class="left">
+			<div>
+				<h2>添加信息</h2>
+				<input type="text" placeholder="username" id="username">
+				<input type="text" placeholder="userage" id="userage">
+				<button>添加</button>
+			</div>
+			<div>
+				<h2>修改信息</h2>
+				<input type="text" placeholder="changename" id="changename">
+				<input type="text" placeholder="changeage" id="changeage">
+				<button>修改</button>
+			</div>
+			<div>
+				<h2>删除信息</h2>
+				<input type="text" placeholder="deletename" id="deletename">
+				<button>删除</button>
+				<button>全部删除</button>
+			</div>
+			<div>
+				<h2>查询信息</h2>
+				<input type="text" placeholder="selectName" id="selectname">
+				<button>查询</button>
+				<button>查询全部</button>
+			</div>
+		</div>
+		<div class="right">
+			<h2>所有信息</h2>
+			<table id="table" width="500" border="1" style="border-collapse:collapse;" cellpadding="20">
+				<tr>
+					<td>name</td>
+					<td>age</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script>
+	var button=document.getElementsByTagName('button');
+	var username=document.getElementById('username');
+	var userage=document.getElementById('userage');
+	var changename=document.getElementById('changename');
+	var changeage=document.getElementById('changeage');
+	var deletename=document.getElementById('deletename');
+	var selectname=document.getElementById('selectname');
+	var table=document.getElementById('table');
+	/*var addBtn=button[0];
+	var fixedBtn=button[1];
+	var deleteBtn=button[2];
+	var deleteAllBtn=button[3];
+	var selectBtn=button[4];
+	var selectAllBtn=button[5];*/
+	var [addBtn,fixedBtn,deleteBtn,deleteAllBtn,selectBtn,selectAllBtn]=button;
+
+	//打开数据库
+	var myDB=window.openDatabase("myDB","1.0","这是复习",function(){
+		alert("打开数据库")
+	})
+	addBtn.onclick=function(){
+		if(username.value!=""&&userage.value!=""){
+			insertInfo(username.value,userage.value)
+		}
+		
+	}
+	fixedBtn.onclick=function(){
+		if(changename.value!=""){
+			fixedInfo(changename.value,changeage.value);
+		}
+	}
+	deleteBtn.onclick=function(){
+		deleteInfo(deletename.value);
+	}
+	deleteAllBtn.onclick=function(){
+		deleteInfo();
+	}
+	selectBtn.onclick=function(){
+		selectInfo(selectname.value);
+	}
+	selectAllBtn.onclick=function(){
+		selectInfo();
+	}
+	//添加
+	function insertInfo(name,age){
+		var createSql="CREATE TABLE IF NOT EXISTS myTable (rowid INTEGER PRIMARY KEY AUTOINCREMENT,NAME text,AGE text)";
+		myDB.transaction(function(ctx){
+			ctx.executeSql(createSql,[],function(){
+				console.log("create success");
+				ctx.executeSql("INSERT INTO myTable (NAME,AGE) VALUES (?,?)",[name,age],function(){
+					console.log("insert success");
+					username.value="";
+					userage.value="";
+					selectInfo();
+				},function(){
+					alert("插入失败")
+				})
+			},function(){
+				alert("创建表失败")
+			})
+		})
+	}
+	function fixedInfo(name,age){
+		var upDateSql="UPDATE myTable SET AGE=? WHERE NAME=?";
+		myDB.transaction(function(ctx){
+			ctx.executeSql(upDateSql,[age,name],function(){
+				console.log("update success");
+				changename.value="";
+				changeage.value="";
+				selectInfo();
+			},function(){
+				alert("更新失败")
+			})
+		})
+	}
+	function deleteInfo(name){
+		var deleteSql="DELETE FROM myTable";//删除表
+		if(name){
+			deleteSql+=" WHERE NAME=?";//删除表中某条数据
+		}
+		myDB.transaction(function(ctx){
+			ctx.executeSql(deleteSql,name?[name]:[],function(){
+				console.log("delete success");
+				deletename.value="";
+				selectInfo();
+			},function(){
+				alert("删除失败")
+			})
+		})
+	}
+	function selectInfo(name){
+		var selectSql="SELECT * FROM myTable";//查询表
+		if(name){
+			selectSql+=" WHERE NAME=?";//查询某条数据
+		}
+		myDB.transaction(function(ctx){
+			ctx.executeSql(selectSql,name?[name]:[],function(ctx,result){
+				console.log("select success");
+				console.log(result.rows)
+				table.innerHTML="";
+				for(var i=0;i<result.rows.length;i++){
+					table.innerHTML+=`<tr><td>${result.rows[i].NAME}</td><td>${result.rows[i].AGE}</td></tr>`;
+				}
+			},function(){
+				alert("查询失败")
+			})
+		})
+	}
+	</script>
+</body>
+</html>

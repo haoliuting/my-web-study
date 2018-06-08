@@ -24,6 +24,7 @@
 	1）默认
 		$color:red !detault;
 	2)全局、局部
+		$color:red !global;
 	3)嵌套 &表示父元素选择器
 
 3.@mixin
@@ -70,3 +71,61 @@
 		@extend .one;
 		border: 2px solid blue;
 	}
+5.基本特性
+	(1)% 占位符
+6.运算
+	(1)+ - * / %
+	(2)
+	p {
+	  font: 10px/8px;             // 纯 CSS，不是除法运算
+	  $width: 1000px;
+	  width: $width/2;            // 使用了变量，是除法运算
+	  width: round(1.5)/2;        // 使用了函数，是除法运算
+	  height: (500px/2);          // 使用了圆括号，是除法运算
+	  margin-left: 5px + 8px/2px; // 使用了加（+）号，是除法运算
+	}
+7.条件判断与循环
+	(1)
+		p{
+		 @if 2+2==4 {
+		  border:2px solid red;
+		 }@else{
+		 	border: 2px solid blue;
+		 }
+		}
+	(2)三目运算符
+		$isBold:true;
+		p{
+			font-weight:if($isBold,bold,normal);
+		}
+	(3)for循环
+		@for $i from 1 through 3{   //1,2,3
+			.item-#{$i}{
+				width:100px*$i;
+			}
+		}
+
+		@for $i from 1 to 3{   //1,2
+			.item-#{$i}{
+				width:100px*$i;
+			}
+		}
+
+		注意：through 包含end,to不包含end
+	(4)each循环
+		@each $img in bg1,bg2,bg3{
+			.#{$img}{
+				background: url(img/#{$img}.jpg) 0 0 no-repeat;
+			}
+		}
+	(5)while循环
+		$i:6;
+		@while $i>0{
+			.item-#{$i}{
+				background:red;
+			}
+			$i:$i - 2;  //-左右得有空格
+		}
+8.如果我现在有一个color.scss的配置文件，需要引入到style.scss
+@import "color";
+

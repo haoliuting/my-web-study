@@ -1,0 +1,50 @@
+$color:#ffad08;
+$colorFFF:#fff;
+@mixin width100($w:100%){
+	width: $w;
+}
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.wrap{
+	@include width100;
+	header{
+		background: $color;
+		color: $colorFFF;
+		text-align: center;
+		font-size:18px;
+		line-height: 30px;
+	}
+	nav{
+		@extend header;
+		font-size:14px;
+	}
+	.banner{
+		@include width100;
+		height:178px;
+		overflow: hidden;
+		position: relative;
+		.inner{
+			width: 300%;
+			height: 100%;
+		}
+		ul{
+			overflow: hidden;
+			position:absolute;
+            left: 50%;
+            bottom: 15px;
+            transform:translate(-50%,-50%);
+			li{
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				opacity:0.6;
+				background:#ffffff;
+				float: left;
+				margin: 0 10px;
+			}
+		}
+	}
+}
