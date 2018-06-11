@@ -1,0 +1,17 @@
+1.http://www.runoob.com/w3cnote/flex-grammar.html
+
+2.
+.box{
+	display:flex;
+	display:-webkit-flex;
+	flex-flow:row|row-reverse|column|column-reverse wrap|nowwrap|wrap-reverse;
+					排列方向                            是否换行
+	justify-content:flex-start | flex-end | center |space-between | space-around; //x轴对齐方式
+	align-items : flex-start | flex-end | center | baseline | stretch ; //y轴对齐方式
+
+}
+.box div{
+	order: 1; //数字越大，排列在后，默认是0
+	flex-grow: 0; //默认是0，占剩余空间的比例
+	flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
+}
