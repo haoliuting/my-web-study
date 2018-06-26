@@ -1,0 +1,36 @@
+1.功能：打包文件
+2.安装：npm/cnpm i webpack -g
+	npm/cnpm i webpack-cli -g
+3.打包：webpack a.js bundle.js
+4.如果有多个文件，则有一个main.js,在main.js里面，通过require引入其他文件，webpack main.js bundle.js.
+5.如果要使用插件，比如jquery,则
+	先安装：npm i jquery --D
+	再引入：var $=require("jqeury");
+6.可以通过npm init 生成package.json文件
+7.可以配置webpack.config.js文件如下：
+	module.exports={
+	entry:'./src/js/main.js',
+	output:{
+		path:__dirname+"/dist",
+		filename:"bundle.js"
+	},
+	module:{
+		rules:[
+			{
+				test:/\.css$/,
+				loader:"style-loader!css-loader"
+			}
+		]
+	},
+	devServer:{
+		port:8081,//端口改为8081	
+		open:true,// 自动打开浏览器，适合懒人
+		// compress:true //压缩
+	}
+}
+8.如果用到服务器，需要安装：npm i webpack-dev-server
+可以通过package.json配置
+	"scripts": {
+    		"start": "webpack-dev-server --progress --colors --hot --inline -d --watch",
+    	"build": "webpack --watch"
+  },

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var box=document.getElementById("box");
+        if(2==2){
+            const a=5;
+            console.log(a);//5
+        }
+        //console.log(a)//报错
+
+        var str="this is first.this is includes function,startWith function and endWidth function";
+        var a=str.includes("this");//true
+        var b=str.startsWith("this");//true
+        var c=str.endsWith("tion");//true
+        console.log(a,b,c);
+        var e=str.includes("first",10);//false
+        var f=str.startsWith("is",5);//true
+        var g=str.endsWith("c",5);//false
+        console.log(e,f,g);
+        var strNew="this is test";
+        strNew=strNew.repeat(3);
+        console.log(strNew);
+        
+        var first="huizhiwang";
+        var last="汇智网";
+        var fullname=`hello,${first},${last}`;
+        console.log(fullname)
+        box.innerHTML=`
+            <div>
+                <ul>
+                    <li>this is template,${first}</li>
+                </ul>
+            </div>
+        `;
+    </script>
+</body>
+</html>
