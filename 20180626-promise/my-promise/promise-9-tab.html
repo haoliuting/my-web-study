@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        .container div{
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            background-color: blanchedalmond;
+            display: none;
+            line-height: 100px;
+        }
+        .container div.active{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn btn-primary">11</button>
+        <button>22</button>
+        <button>33</button>
+        <div class="active">111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <script>
+        var button=document.querySelectorAll("button");
+        var div=document.querySelectorAll(".container div");
+        var index=0;
+        function show(){
+            index++;
+            return new Promise(function(resolve,reject){
+                index==div.length?reject():resolve(index);
+            }).then(function(index){
+                for(var i=0;i<div.length;i++){
+                    button[i].className="";
+                    div[i].className="";
+                }
+                button[index].className="btn btn-primary";
+                div[index].className="active";
+            }).catch(function(){
+                index=-1;
+                show();
+            })
+        }
+        setInterval(show,1000)
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
 var str="this is weiyian";
-moduel.exports={
+module.exports={
 	str
 }

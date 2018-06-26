@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        Promise.all([
+            new Promise(function(resolve,reject){
+                resolve("one");
+            }),
+            new Promise(function(resolve,reject){
+                resolve("two");
+            }),
+            new Promise(function(resolve,reject){
+                reject("three");
+            }),
+            new Promise(function(resolve,reject){
+                reject("four");
+            })
+        ]).then(function(v){//全部都是resolve
+            console.log(v)
+        }).catch(function(v){//只要有一个reject
+            console.log(v)
+        })
+    </script>
+</body>
+</html>
