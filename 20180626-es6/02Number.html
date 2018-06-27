@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Number.isFinite(x)
+        var a=Number.isFinite(1.5);//true
+        var b=Number.isFinite(15);//true
+        var c=Number.isFinite(Infinity);//false
+        var d=Number.isFinite(1/-0);//false
+        var e=Number.isFinite("foo");//false
+        var f=Number.isFinite(true);//false
+        console.log(a,b,c,d,e,f)
+        //Number.isNaN(x)
+        var i=Number.isNaN(NaN);//true
+        var m=Number.isNaN(15);//false
+        var n=Number.isNaN("foo");//false
+        var l=Number.isNaN(true);//false
+        console.log(i,m,n,l)
+
+        //Number.isInteger()
+        var r=Number.isInteger(100);//true
+        var s=Number.isInteger(10.0);//true
+        var t=Number.isInteger(10.1);//false
+        var q=Number.isInteger("15");//false
+        var p=Number.isInteger(true);//false
+        console.log(r,s,t,q,p)
+
+        
+    </script>
+</body>
+</html>
